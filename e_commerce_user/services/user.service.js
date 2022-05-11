@@ -24,9 +24,9 @@ class UserService {
 
         const salt = await bcrypt.genSalt(saltRounds);
         const hashedPassword = await bcrypt.hash(password, salt);
-        const user = await this.repository.createUser(email, hashedPassword, username, firstName, lastName);
+        const newUser = await this.repository.createUser(email, hashedPassword, username, firstName, lastName);
 
-        return user;
+        return newUser;
     }
 
     async login(email, password) {
@@ -49,6 +49,27 @@ class UserService {
         }
 
         return user;              
+    }
+
+    async getAdresses(userId) {
+        const user = await this.repository.findUserById(userId);
+        await user.populate('adresses');
+
+        return user.adresses;
+    }
+
+    async createAddress(userId, address) {
+        const newAddress = await this.repository.createAddress(address);
+        await this.repository.addUserAddress(userId, newAddress._id);
+    }
+
+    async editAddress(address) {
+        await this.repository.editAddress(address);
+    }
+
+    async deleteAddress(userId, addressId) {
+        await this.repository.removeUserAddress(userId, addressId);
+        await this.repository.deleteAddress(addressId);
     }
 }
 

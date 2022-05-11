@@ -1,9 +1,8 @@
 const router = require("express").Router();
-const UserService = require("../services/user.service");
-
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
+const UserService = require("../services/user.service");
 const service = new UserService();
 
 router.get("/loggedin", (req, res) => {
