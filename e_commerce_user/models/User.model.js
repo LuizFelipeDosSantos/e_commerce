@@ -24,7 +24,7 @@ const userSchema = new Schema(
       required: true,
     },
     adresses: [{ type: Schema.Types.ObjectId, ref: 'Address' }],
-    wishlist: [{ product: {type: Schema.Types.ObjectId} }],
+    wishlist: [{ type: Schema.Types.ObjectId}],
   },
   {
     timestamps: true,

@@ -41,7 +41,7 @@ class UserRepository {
     }
 
     async addUserAddress(userId, addressId) {
-        const user = this.findUserById(userId);
+        const user = await this.findUserById(userId);
 
         user.adresses.push(addressId);
         await user.save();
@@ -64,9 +64,29 @@ class UserRepository {
     }
 
     async removeUserAddress(userId, addressId) {
-        const user = this.findUserById(userId);
+        const user = await this.findUserById(userId);
 
         user.adresses.splice(user.adresses.indexOf(addressId), 1);
+        await user.save();
+    }
+
+    async getWishlist(userId) {
+        const user = await this.findUserById(userId);
+
+        return user.wishlist;
+    }
+
+    async addProductWishlist(userId, productId) {
+        const user = await this.findUserById(userId);
+
+        user.wishlist.push(productId);
+        await user.save();
+    }
+
+    async removeProductWishlist(userId, productId) {
+        const user = await this.findUserById(userId);
+
+        user.wishlist.splice(user.wishlist.indexOf(productId), 1);
         await user.save();
     }
 }

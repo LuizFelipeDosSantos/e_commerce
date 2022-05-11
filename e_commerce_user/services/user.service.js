@@ -71,6 +71,19 @@ class UserService {
         await this.repository.removeUserAddress(userId, addressId);
         await this.repository.deleteAddress(addressId);
     }
+
+    async getWishlist(userId) {
+        const wishlist = await this.repository.getWishlist(userId);
+        return wishlist;
+    }
+
+    async addProductWishlist(userId, productId) {
+        await this.repository.addProductWishlist(userId, productId);
+    }
+
+    async removeProductWishlist(userId, productId) {
+        await this.repository.removeProductWishlist(userId, productId);
+    }
 }
 
 module.exports = UserService;
