@@ -2,11 +2,27 @@ const { Schema, model } = require("mongoose");
 
 const productSchema = new Schema(
   {
-    username: {
+    name: {
       type: String,
-      // unique: true -> Ideally, should be unique, but its up to you
+      required: true,
     },
-    password: String,
+    description: {
+      type: String,
+      required: true,
+    },
+    imgUrl: {
+      type: String,
+      required: true,
+    },
+    category: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    available: Boolean,
   },
   {
     timestamps: true,
