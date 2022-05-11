@@ -4,7 +4,7 @@ const service = new UserService();
 
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-router.get("/list", isLoggedIn, (req, res) => {
+router.get("/list", isLoggedIn, async (req, res) => {
   try {
     const wishlist = await service.getWishlist(req.session.user._id);
 
@@ -14,7 +14,7 @@ router.get("/list", isLoggedIn, (req, res) => {
   }
 });
 
-router.post("/add", isLoggedIn, (req, res) => {
+router.post("/add", isLoggedIn, async (req, res) => {
   try {
     const { productId } = req.body;
 
@@ -27,7 +27,7 @@ router.post("/add", isLoggedIn, (req, res) => {
   }
 });
 
-router.delete("/remove", isLoggedIn, (req, res) => {
+router.delete("/remove", isLoggedIn, async (req, res) => {
   try {
     const { productId } = req.query;
 

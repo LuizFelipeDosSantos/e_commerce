@@ -4,7 +4,7 @@ const service = new UserService();
 
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-router.get("/list", isLoggedIn, (req, res) => {
+router.get("/list", isLoggedIn, async (req, res) => {
   try {
     const addresses = await service.getAdresses(req.session.user._id);
 
@@ -14,7 +14,7 @@ router.get("/list", isLoggedIn, (req, res) => {
   }
 });
 
-router.post("/create", isLoggedIn, (req, res) => {
+router.post("/create", isLoggedIn, async (req, res) => {
   try {
     const { address } = req.body;
 
@@ -27,7 +27,7 @@ router.post("/create", isLoggedIn, (req, res) => {
   }
 });
 
-router.put("/edit", isLoggedIn, (req, res) => {
+router.put("/edit", isLoggedIn, async (req, res) => {
   try {
     const { address } = req.body;
 
@@ -40,7 +40,7 @@ router.put("/edit", isLoggedIn, (req, res) => {
   }
 });
 
-router.delete("/delete", isLoggedIn, (req, res) => {
+router.delete("/delete", isLoggedIn, async (req, res) => {
   try {
     const { addressId } = req.query;
 
