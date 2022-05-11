@@ -2,10 +2,11 @@ const { Schema, model } = require("mongoose");
 
 const orderSchema = new Schema(
   {
-    username: {
-      type: String,
-    },
-    password: String,
+    user: { type: Schema.Types.ObjectId },
+    address: { type: Schema.Types.ObjectId },
+    amount: Number,
+    status: String,
+    items: [{ type: Schema.Types.ObjectId }],
   },
   {
     timestamps: true,
