@@ -2,10 +2,11 @@ const router = require("express").Router();
 const ShoppingService = require("../services/shopping.service");
 const service = new ShoppingService();
 
-router.get("/list", async (req, res) => {
+const isLoggedIn = require("../middleware/isLoggedIn");
+
+router.get("/list", isLoggedIn, async (req, res) => {
     try {
-        const { userId } = req.body;
-        const orders = await service.getOrders(userId);
+        const orders = await service.getOrders(req.session.user._id);
 
         return res.status(200).json({ orders });   
     } catch (error) {
@@ -13,10 +14,10 @@ router.get("/list", async (req, res) => {
     }
 });
 
-router.post("/create", async (req, res) => {
+router.post("/create", isLoggedIn, async (req, res) => {
     try {
-        const { userId, addressId, amount, items } = req.body;
-        await service.createOrder(userId, addressId, amount, items);
+        const { addressId, amount, items } = req.body;
+        await service.createOrder(req.session.user._id, addressId, amount, items);
 
         return res.status(200).json({ message: "Successfully added." });   
     } catch (error) {
