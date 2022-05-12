@@ -6,7 +6,8 @@ const orderSchema = new Schema(
     address: { type: Schema.Types.ObjectId },
     amount: Number,
     status: String,
-    items: [{ type: Schema.Types.ObjectId }],
+    items: [{ product: { type: Schema.Types.ObjectId },
+              quantity: Number }],
   },
   {
     timestamps: true,

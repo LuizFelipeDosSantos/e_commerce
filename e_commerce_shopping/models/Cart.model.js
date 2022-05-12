@@ -4,7 +4,8 @@ const cartSchema = new Schema(
   {
     user: { type: Schema.Types.ObjectId },
     amount: Number,
-    items: [{ type: Schema.Types.ObjectId }],
+    items: [{ product: { type: Schema.Types.ObjectId }, 
+              quantity: Number }],
   },
   {
     timestamps: true,
