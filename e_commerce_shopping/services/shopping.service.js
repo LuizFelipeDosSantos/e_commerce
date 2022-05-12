@@ -22,6 +22,15 @@ class ShoppingService {
         await this.repository.removeProductCart(userId, productId, amount);
     }
 
+    async getOrders(userId) {
+        const orders = await this.repository.getOrders(userId);
+        return orders;
+    }
+
+    async createOrder(userId, addressId, amount, items) {
+        await this.repository.createOrder(userId, addressId, amount, items);
+    }
+
 }
 
 module.exports = ShoppingService;

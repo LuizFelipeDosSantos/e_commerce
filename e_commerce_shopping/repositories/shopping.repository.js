@@ -36,6 +36,21 @@ class ShoppingRepository {
         await cart.save();
     }
 
+    async getOrders(userId) {
+        const orders = await Order.find({ user: userId });
+        return orders;
+    }
+
+    async createOrder(userId, addressId, amount, items) {
+        await Order.create({
+            user: userId,
+            address: addressId,
+            amount,
+            status: "Delivered",
+            items
+        });
+    }
+
 }
 
 module.exports = ShoppingRepository;
