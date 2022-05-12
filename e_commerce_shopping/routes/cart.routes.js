@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
 router.post("/addProduct", async (req, res) => {
     try {
         const { userId, productId, quantity, amount } = req.body;
-        const cart = await service.addProductCart(userId, productId, quantity, amount);
+        await service.addProductCart(userId, productId, quantity, amount);
 
         return res.status(200).json({ message: "Successfully added." });   
     } catch (error) {
@@ -27,7 +27,7 @@ router.post("/addProduct", async (req, res) => {
 router.put("/removeProduct", async (req, res) => {
     try {
         const { userId, productId, amount } = req.body;
-        const cart = await service.removeProductCart(userId, productId, amount);
+        await service.removeProductCart(userId, productId, amount);
 
         return res.status(200).json({ message: "Successfully removed." });   
     } catch (error) {
