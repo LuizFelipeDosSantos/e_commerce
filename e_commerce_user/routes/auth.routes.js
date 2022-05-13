@@ -23,7 +23,7 @@ router.post("/signup", isLoggedOut, async (req, res) => {
   }
 });
 
-router.post("/login", isLoggedOut, async (req, res, next) => {
+router.post("/login", isLoggedOut, async (req, res) => {
   const { email, password } = req.body;
 
   try {
