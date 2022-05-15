@@ -2,9 +2,7 @@ const router = require("express").Router();
 const ProductService = require("../services/product.service");
 const service = new ProductService();
 
-const isLoggedIn = require("../middleware/isLoggedIn");
-
-router.get("/list", isLoggedIn, async (req, res) => {
+router.get("/list", async (req, res) => {
   try {
     const products = await service.getProducts();
 
@@ -14,7 +12,7 @@ router.get("/list", isLoggedIn, async (req, res) => {
   }
 });
 
-router.post("/create", isLoggedIn, async (req, res) => {
+router.post("/create", async (req, res) => {
   try {
     const { product } = req.body;
 
@@ -27,7 +25,7 @@ router.post("/create", isLoggedIn, async (req, res) => {
   }
 });
 
-router.put("/edit", isLoggedIn, async (req, res) => {
+router.put("/edit", async (req, res) => {
   try {
     const { product } = req.body;
 
@@ -40,7 +38,7 @@ router.put("/edit", isLoggedIn, async (req, res) => {
   }
 });
 
-router.delete("/delete", isLoggedIn, async (req, res) => {
+router.delete("/delete", async (req, res) => {
   try {
     const { productId } = req.query;
 
