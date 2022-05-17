@@ -2,23 +2,22 @@ const router = require("express").Router();
 const UserService = require("../services/user.service");
 const service = new UserService();
 
-const isLoggedIn = require("../middleware/isLoggedIn");
-
-router.get("/list", isLoggedIn, async (req, res) => {
+router.get("/list", async (req, res) => {
   try {
-    const adresses = await service.getAdresses(req.session.user._id);
+    const { userId } = req.body;
+    const addresses = await service.getAdresses(userId);
 
-    return res.status(200).json({ adresses });
+    return res.status(200).json({ addresses });
   } catch (error) {
     return res.status(400).json({ errorMessage: error.errorMessage });  
   }
 });
 
-router.post("/create", isLoggedIn, async (req, res) => {
+router.post("/create", async (req, res) => {
   try {
-    const { address } = req.body;
+    const { address, userId } = req.body;
 
-    await service.createAddress(req.session.user._id, address);
+    await service.createAddress(userId, address);
 
     return res.status(200).json({ message: "Successfully created." });
   } catch (error) {
@@ -27,7 +26,7 @@ router.post("/create", isLoggedIn, async (req, res) => {
   }
 });
 
-router.put("/edit", isLoggedIn, async (req, res) => {
+router.put("/edit", async (req, res) => {
   try {
     const { address } = req.body;
 
@@ -40,9 +39,9 @@ router.put("/edit", isLoggedIn, async (req, res) => {
   }
 });
 
-router.delete("/delete", isLoggedIn, async (req, res) => {
+router.delete("/delete", async (req, res) => {
   try {
-    const { addressId } = req.query;
+    const { addressId, userId } = req.query;
 
     await service.deleteAddress(req.session.user._id, addressId);
 
