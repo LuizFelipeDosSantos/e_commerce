@@ -4,12 +4,24 @@ const addressSchema = new Schema(
   {
     street: {
       type: String,
-      unique: true,
+      required: true,
     },
-    number: Number,
-    plz: Number,
-    city: String,
-    country: String,
+    number: {
+      type: Number,
+      required: true,
+    },
+    zipCode: {
+      type: Number,
+      required: true,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
+    country: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

@@ -6,9 +6,9 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 
 router.get("/list", isLoggedIn, async (req, res) => {
   try {
-    const addresses = await service.getAdresses(req.session.user._id);
+    const adresses = await service.getAdresses(req.session.user._id);
 
-    return res.status(200).json({ addresses });
+    return res.status(200).json({ adresses });
   } catch (error) {
     return res.status(400).json({ errorMessage: error.errorMessage });  
   }
