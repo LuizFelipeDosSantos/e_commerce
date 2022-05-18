@@ -30,7 +30,7 @@ router.post("/login", isLoggedOut, async (req, res) => {
     const user = await service.login(email, password);
     req.session.user = user;
 
-    return res.status(200).json(user);
+    return res.status(200).json({ user });
       
   } catch (error) {
     return res.status(400).json({ errorMessage: error.message });

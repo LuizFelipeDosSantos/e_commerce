@@ -4,7 +4,8 @@ const service = new UserService();
 
 router.get("/list", async (req, res) => {
   try {
-    const { userId } = req.body;
+    const { userId } = req.query;
+    console.log(req.query);
     const addresses = await service.getAdresses(userId);
 
     return res.status(200).json({ addresses });
