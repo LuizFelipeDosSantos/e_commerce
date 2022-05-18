@@ -5,10 +5,9 @@ const service = new UserService();
 router.get("/list", async (req, res) => {
   try {
     const { userId } = req.query;
-    console.log(req.query);
-    const addresses = await service.getAdresses(userId);
+    const adresses = await service.getAdresses(userId);
 
-    return res.status(200).json({ addresses });
+    return res.status(200).json({ adresses });
   } catch (error) {
     return res.status(400).json({ errorMessage: error.errorMessage });  
   }

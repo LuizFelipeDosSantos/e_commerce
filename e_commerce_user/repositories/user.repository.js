@@ -28,12 +28,12 @@ class UserRepository {
     }
 
     async createAddress(address) {
-        const { street, number, plz, city, country } = address;
+        const { street, number, zipCode, city, country } = address;
 
         const newAddress = await Address.create({
             street,
             number,
-            plz,
+            zipCode,
             city,
             country
         });
