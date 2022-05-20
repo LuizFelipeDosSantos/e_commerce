@@ -42,8 +42,9 @@ router.put("/edit", async (req, res) => {
 router.delete("/delete", async (req, res) => {
   try {
     const { addressId, userId } = req.query;
+    console.log(addressId, userId);
 
-    await service.deleteAddress(req.session.user._id, addressId);
+    await service.deleteAddress(userId, addressId);
 
     return res.status(200).json({ message: "Successfully deleted." });
   } catch (error) {
