@@ -2,11 +2,10 @@ const router = require("express").Router();
 const UserService = require("../services/user.service");
 const service = new UserService();
 
-const isLoggedIn = require("../middleware/isLoggedIn");
-
-router.get("/list", isLoggedIn, async (req, res) => {
+router.get("/list", async (req, res) => {
   try {
-    const wishlist = await service.getWishlist(req.session.user._id);
+    const { userId } = req.query;
+    const wishlist = await service.getWishlist(userId);
 
     return res.status(200).json({ wishlist });
   } catch (error) {
@@ -14,11 +13,11 @@ router.get("/list", isLoggedIn, async (req, res) => {
   }
 });
 
-router.post("/add", isLoggedIn, async (req, res) => {
+router.post("/add", async (req, res) => {
   try {
-    const { productId } = req.body;
+    const { product, userId } = req.body;
 
-    await service.addProductWishlist(req.session.user._id, productId);
+    await service.addProductWishlist(userId, product);
 
     return res.status(200).json({ message: "Successfully added." });
   } catch (error) {
@@ -27,11 +26,11 @@ router.post("/add", isLoggedIn, async (req, res) => {
   }
 });
 
-router.delete("/remove", isLoggedIn, async (req, res) => {
+router.delete("/remove", async (req, res) => {
   try {
-    const { productId } = req.query;
+    const { productId, userId } = req.query;
 
-    await service.removeProductWishlist(req.session.user._id, productId);
+    await service.removeProductWishlist(userId, productId);
 
     return res.status(200).json({ message: "Successfully removed." });
   } catch (error) {

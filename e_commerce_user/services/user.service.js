@@ -69,8 +69,8 @@ class UserService {
         return wishlist;
     }
 
-    async addProductWishlist(userId, productId) {
-        await this.repository.addProductWishlist(userId, productId);
+    async addProductWishlist(userId, product) {
+        await this.repository.addProductWishlist(userId, product);
     }
 
     async removeProductWishlist(userId, productId) {

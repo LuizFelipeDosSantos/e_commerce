@@ -76,17 +76,18 @@ class UserRepository {
         return user.wishlist;
     }
 
-    async addProductWishlist(userId, productId) {
+    async addProductWishlist(userId, product) {
         const user = await this.findUserById(userId);
 
-        user.wishlist.push(productId);
+        user.wishlist.push(product);
         await user.save();
     }
 
     async removeProductWishlist(userId, productId) {
         const user = await this.findUserById(userId);
+        productId = mongoose.Types.ObjectId(productId);
 
-        user.wishlist.splice(user.wishlist.indexOf(productId), 1);
+        user.wishlist.splice(user.wishlist.findIndex((wlProduct) => wlProduct._id.equals(productId)), 1);
         await user.save();
     }
 }
