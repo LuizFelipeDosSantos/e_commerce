@@ -14,8 +14,8 @@ class ShoppingService {
         return newCart;
     }
 
-    async addProductCart(userId, productId, quantity, amount) {
-        await this.repository.addProductCart(userId, productId, quantity, amount);
+    async addProductCart(userId, product, quantity, amount) {
+        await this.repository.addProductCart(userId, product, quantity, amount);
     }
 
     async removeProductCart(userId, productId, amount) {

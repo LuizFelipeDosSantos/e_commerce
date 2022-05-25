@@ -2,11 +2,10 @@ const router = require("express").Router();
 const ShoppingService = require("../services/shopping.service");
 const service = new ShoppingService();
 
-const isLoggedIn = require("../middleware/isLoggedIn");
-
-router.get("/", isLoggedIn, async (req, res) => {
+router.get("/", async (req, res) => {
     try {
-        const cart = await service.getCart(req.session.user._id);
+        const { userId } = req.query;
+        const cart = await service.getCart(userId);
 
         return res.status(200).json({ cart });   
     } catch (error) {
@@ -14,10 +13,10 @@ router.get("/", isLoggedIn, async (req, res) => {
     }
 });
 
-router.post("/addProduct", isLoggedIn, async (req, res) => {
+router.post("/addProduct", async (req, res) => {
     try {
-        const { productId, quantity, amount } = req.body;
-        await service.addProductCart(req.session.user._id, productId, quantity, amount);
+        const { userId, product, quantity, amount } = req.body;
+        await service.addProductCart(userId, product, quantity, amount);
 
         return res.status(200).json({ message: "Successfully added." });   
     } catch (error) {
@@ -25,10 +24,10 @@ router.post("/addProduct", isLoggedIn, async (req, res) => {
     }
 });
 
-router.put("/removeProduct", isLoggedIn, async (req, res) => {
+router.delete("/removeProduct", async (req, res) => {
     try {
-        const { productId, amount } = req.body;
-        await service.removeProductCart(req.session.user._id, productId, amount);
+        const { userId, productId, amount } = req.query;
+        await service.removeProductCart(userId, productId, amount);
 
         return res.status(200).json({ message: "Successfully removed." });   
     } catch (error) {

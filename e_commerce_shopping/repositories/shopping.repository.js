@@ -18,10 +18,10 @@ class ShoppingRepository {
         return newCart;
     }
 
-    async addProductCart(userId, productId, quantity, amount) {
-        const cart = await Cart.findOne({ user: userId });
+    async addProductCart(userId, product, quantity, amount) {
+        const cart = await this.getCart(userId);
 
-        cart.items.push({ product: productId, quantity});
+        cart.items.push({ product: product, quantity});
         cart.amount += amount;
 
         await cart.save();
@@ -30,7 +30,7 @@ class ShoppingRepository {
     async removeProductCart(userId, productId, amount) {
         const cart = await Cart.findOne({ user: userId });
 
-        cart.items.splice(cart.items.findIndex(item => item.product === productId), 1);
+        cart.items.splice(cart.items.findIndex((item) => item.product === productId), 1);
         cart.amount -= amount;
 
         await cart.save();
