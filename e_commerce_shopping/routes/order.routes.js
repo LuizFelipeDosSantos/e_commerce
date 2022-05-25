@@ -2,9 +2,7 @@ const router = require("express").Router();
 const ShoppingService = require("../services/shopping.service");
 const service = new ShoppingService();
 
-const isLoggedIn = require("../middleware/isLoggedIn");
-
-router.get("/list", isLoggedIn, async (req, res) => {
+router.get("/list", async (req, res) => {
     try {
         const orders = await service.getOrders(req.session.user._id);
 
@@ -14,7 +12,7 @@ router.get("/list", isLoggedIn, async (req, res) => {
     }
 });
 
-router.post("/create", isLoggedIn, async (req, res) => {
+router.post("/create", async (req, res) => {
     try {
         const { addressId, amount, items } = req.body;
         await service.createOrder(req.session.user._id, addressId, amount, items);
