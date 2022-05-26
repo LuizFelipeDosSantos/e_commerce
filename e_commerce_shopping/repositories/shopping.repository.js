@@ -29,8 +29,9 @@ class ShoppingRepository {
 
     async removeProductCart(userId, productId, amount) {
         const cart = await Cart.findOne({ user: userId });
+        productId = mongoose.Types.ObjectId(productId);
 
-        cart.items.splice(cart.items.findIndex((item) => item.product === productId), 1);
+        cart.items.splice(cart.items.findIndex((item) => item.product._id.equals(productId)), 1);
         cart.amount -= amount;
 
         await cart.save();
