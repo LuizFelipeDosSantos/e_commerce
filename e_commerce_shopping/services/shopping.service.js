@@ -29,6 +29,7 @@ class ShoppingService {
 
     async createOrder(userId, addressId, amount, items) {
         await this.repository.createOrder(userId, addressId, amount, items);
+        await this.repository.clearCart(userId);
     }
 
 }

@@ -37,6 +37,13 @@ class ShoppingRepository {
         await cart.save();
     }
 
+    async clearCart(userId) {
+        const cart = await this.getCart(userId);
+        cart.items = [];
+        cart.amount = 0;
+        cart.save();
+    }
+
     async getOrders(userId) {
         const orders = await Order.find({ user: userId });
         return orders;

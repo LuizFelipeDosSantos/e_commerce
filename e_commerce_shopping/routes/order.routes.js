@@ -4,7 +4,8 @@ const service = new ShoppingService();
 
 router.get("/list", async (req, res) => {
     try {
-        const orders = await service.getOrders(req.session.user._id);
+        const { userId } = req.query;
+        const orders = await service.getOrders(userId);
 
         return res.status(200).json({ orders });   
     } catch (error) {
@@ -14,8 +15,8 @@ router.get("/list", async (req, res) => {
 
 router.post("/create", async (req, res) => {
     try {
-        const { addressId, amount, items } = req.body;
-        await service.createOrder(req.session.user._id, addressId, amount, items);
+        const { userId, addressId, amount, items } = req.body;
+        await service.createOrder(userId, addressId, amount, items);
 
         return res.status(200).json({ message: "Successfully added." });   
     } catch (error) {
