@@ -37,7 +37,7 @@ router.post("/login", isLoggedOut, async (req, res) => {
   }
 });
 
-router.get("/logout", isLoggedIn, (req, res) => {
+router.get("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       return res.status(500).json({ errorMessage: err.message });
